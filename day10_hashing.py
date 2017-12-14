@@ -19,8 +19,8 @@ def hash_round(lengths, l, cur_pos, skip):
         skip += 1
     return l, cur_pos, skip
 
-if __name__ == "__main__":
-    lengths = [ord(x) for x in sys.argv[1]] + ALWAYS_ADD
+def compute_hash(s):
+    lengths = [ord(x) for x in s] + ALWAYS_ADD
     cur_pos = 0
     skip = 0
     l = range(256)
@@ -36,5 +36,8 @@ if __name__ == "__main__":
         dense.append(xor)
 
     hash_str = "".join("{:02x}".format(x) for x in dense)
-    print hash_str
+    return hash_str
+
+if __name__ == "__main__":
+    print compute_hash(sys.argv[1])
 
