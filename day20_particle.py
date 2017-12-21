@@ -1,3 +1,4 @@
+import collections
 import re
 import sys
 
@@ -39,6 +40,30 @@ def part_1(particles):
             min_v_idx = i
     return min_v_idx
 
+def part_2(particles):
+    last_len = len(particles)
+    stable_iters = 0
+    while stable_iters < 20:
+        d = collections.defaultdict(list)
+        for i, (p,_,_) in enumerate(particles):
+            d[p].append(i)
+        for k, v in d.iteritems():
+            if len(v) > 1:
+                deleted = 0
+                for i in v:
+                    particles[i] = particles[-1 - deleted]
+                    deleted += 1
+                particles = particles[:- deleted]
+
+        if last_len != len(particles):
+            stable_iters = 0
+            last_len = len(particles)
+        else:
+            stable_iters += 1
+        step(particles)
+    return len(particles)
+
+
 if __name__ == "__main__":
     particles = []
     for l in sys.stdin:
@@ -48,3 +73,4 @@ if __name__ == "__main__":
         a = (int(match.group(7)), int(match.group(8)), int(match.group(9)))
         particles.append((p, v, a))
     print part_1(particles)
+    print part_2(particles)
