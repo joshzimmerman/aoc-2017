@@ -13,5 +13,6 @@ def part_two(digits):
             tot += int(digits[i])
     return tot
 if __name__ == "__main__":
-    print part_one(sys.argv[1])
-    print part_two(sys.argv[1])
+    num = sys.stdin.readline().strip()
+    print part_one(num)
+    print part_two(num)
