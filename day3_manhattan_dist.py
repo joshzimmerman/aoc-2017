@@ -15,7 +15,7 @@ def make_dict(upper):
     d[(0, 1)] = 2
     values[(0, 0)] = 1
     values[(0, 1)] = 1
-    printed = False
+    first_above_upper = None
 
     dir_idx = 1
     i = 3
@@ -34,18 +34,20 @@ def make_dict(upper):
             for y in (-1, 0, 1):
                 val += values[sum_pair((x,y),cur_coord)]
         values[cur_coord] = val
-        if val > upper and not printed:
-            printed = True
-            print val
+        if val > upper and first_above_upper is None:
+            first_above_upper = val
         i += 1
 
-    return d, reverse_d
-def part_1(num):
-    return
+    return reverse_d, first_above_upper
+
+def part_1(num, reverse_d):
+    coord = reverse[num]
+    return abs(coord[0]) + abs(coord[1])
 
 
 if __name__ == "__main__":
-    _, reverse = make_dict(int(sys.argv[1]))
-    coord = reverse[int(sys.argv[1])]
-    print abs(coord[0]) + abs(coord[1])
+    num = int(sys.stdin.readline())
+    reverse, first_above_upper = make_dict(num)
+    print part_1(num, reverse)
+    print first_above_upper
 
