@@ -28,5 +28,5 @@ if __name__ == "__main__":
     insts = []
     for l in sys.stdin:
         insts.append(int(l.strip()))
-    #print part_1(insts)
+    print part_1(insts[:])
     print part_2(insts)
