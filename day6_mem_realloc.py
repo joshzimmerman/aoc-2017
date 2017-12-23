@@ -1,6 +1,6 @@
 import sys
 
-def part_1(bank):
+def redistribute(bank):
     visited = list()
     while tuple(bank) not in visited:
         visited.append(tuple(bank))
@@ -16,9 +16,11 @@ def part_1(bank):
             bank[i] += 1
             maxval -= 1
             i = (i + 1) % len(bank)
-    print len(visited) - visited.index(tuple(bank))
-    return len(visited)
+    return len(visited), len(visited) - visited.index(tuple(bank))
 
 if __name__ == "__main__":
-    bank = [int(s) for s in sys.argv[1:]]
-    print part_1(bank)
+    args = sys.stdin.read().split()
+    bank = [int(s) for s in args]
+    pt1, pt2 = redistribute(bank)
+    print pt1
+    print pt2
