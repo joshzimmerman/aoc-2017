@@ -9,7 +9,7 @@ def val(d, x):
 
 def common_instrs(registers, inst):
     """Evaluates common instructions between parts 1 and 2.
-    (set, add, mul, mod, rcv, jgz)
+    (set, add, mul, mod, jgz)
 
     Returns:
         amount to adjust pc by if there was a jgz that was true
@@ -23,9 +23,6 @@ def common_instrs(registers, inst):
         registers[inst[1]] *= val(registers, inst[2])
     elif inst[0] == "mod":
         registers[inst[1]] = registers[inst[1]] % val(registers, inst[2])
-    elif inst[0] == "rcv":
-        if first_rcv is None and val(registers, inst[1]) != 0:
-            return last_sound
     elif inst[0] == "jgz":
         if val(registers, inst[1]) > 0:
             return val(registers, inst[2])
