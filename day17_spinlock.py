@@ -1,4 +1,5 @@
-INPUT = 380
+import sys
+INPUT = int(sys.stdin.read())
 
 def list_after(upper):
     l = [0]
