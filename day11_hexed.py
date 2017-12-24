@@ -38,5 +38,5 @@ def part_1(path):
     return sum(d.values()), highest
 
 if __name__ == "__main__":
-    path = sys.argv[1].split(",")
+    path = sys.stdin.readline().strip().split(",")
     print part_1(path)
