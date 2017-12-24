@@ -38,6 +38,13 @@ def compute_hash(s):
     hash_str = "".join("{:02x}".format(x) for x in dense)
     return hash_str
 
+def part_1(s):
+    lengths = [int(x) for x in s.split(",")]
+    lengths, _, _ = hash_round(lengths, range(256), 0, 0)
+    return lengths[0] * lengths[1]
+
 if __name__ == "__main__":
-    print compute_hash(sys.argv[1])
+    s = sys.stdin.readline().strip()
+    print part_1(s)
+    print compute_hash(s)
 
