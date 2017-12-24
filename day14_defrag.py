@@ -45,7 +45,7 @@ def part_2(hashes):
 
 
 if __name__ == "__main__":
-    inp = sys.argv[1]
+    inp = sys.stdin.readline().strip()
     hashes = []
     for i in xrange(128):
         hashes.append(list("{:0128b}".format(int(day10_hashing.compute_hash("%s-%d" % (inp, i)), 16))))
