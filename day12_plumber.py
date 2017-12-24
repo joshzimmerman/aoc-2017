@@ -33,5 +33,6 @@ if __name__ == "__main__":
         for val in split[2:]:
             vals.append(int(val.replace(",","")))
         d[key] = vals
-    print reachable(d)
+    pt_1, _ = reachable(d)
+    print pt_1
     print part_2(d)
