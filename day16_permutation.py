@@ -42,5 +42,5 @@ if __name__ == "__main__":
     moves = []
     for l in sys.stdin:
         moves.extend(l.strip().split(','))
-    print "".join(part_1(start_pos, moves))
+        print "".join(part_1(start_pos[:], moves))
     print part_2(start_pos, moves)
