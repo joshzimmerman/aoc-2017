@@ -1,7 +1,6 @@
 import sys
 
 STARTING_BOARD = (".#.", "..#", "###")
-ITERATIONS = 18
 
 def rotate_90(board):
     """e.g.,
@@ -66,9 +65,9 @@ def eval_rule(rules, split_board):
         out.append(row_out)
     return out
 
-def part_1(rules):
+def part_1(rules, iterations):
     board = STARTING_BOARD
-    for _ in xrange(ITERATIONS):
+    for _ in xrange(iterations):
         board = join(eval_rule(rules, split(board)))
     return sum(sum(int(c == '#') for c in r) for r in board)
 
@@ -79,4 +78,5 @@ if __name__ == "__main__":
         pre = tuple(pre.split("/"))
         post = tuple(post.split("/"))
         rules[pre] = post
-    print part_1(rules)
+    print part_1(rules, 5)
+    print part_1(rules, 18)
