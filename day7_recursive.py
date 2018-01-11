@@ -11,18 +11,39 @@ def calc_weights(node, weights, children):
         tot += res
         if each != res:
             conflict = True
-    if conflict:
-        print children[node]
-        for c in children[node]:
-            print weights[c]
     weights[node] = tot
     return tot
+
+def unbalanced_child(node, weights, children):
+    child_weights = {}
+    for c in children[node]:
+        res = unbalanced_child(c, weights, children)
+        if res is not None:
+            return res
+        w = weights[c]
+        if w in child_weights:
+            child_weights[w] = None
+        else:
+            child_weights[w] = c
+    if len(child_weights) <= 1:
+        return None
+    wrong_weight = [w for w in child_weights if child_weights[w] is not None][0]
+    right_weight = [w for w in child_weights if child_weights[w] is None][0]
+    weight_delta = right_weight - wrong_weight
+    return child_weights[wrong_weight], weight_delta
+
+
+def part_2(root, weights, children):
+    orig_weights = weights.copy()
+    calc_weights(root, weights, children)
+    child, weight_delta = unbalanced_child(root, weights, children)
+    return orig_weights[child] + weight_delta
 
 if __name__ == "__main__":
     pointed_to = []
     progs = []
     weights = {}
-    children = {}
+    children = {}  # Map program to its children
     for l in sys.stdin:
         prog = l.split()[0]
         progs.append(prog)
@@ -37,11 +58,4 @@ if __name__ == "__main__":
 
     root = [p for p in progs if p not in pointed_to][0]
     print root
-    calc_weights(root, weights, children)
-
-    for p in progs:
-        for child in children[p]:
-            if weights[children[p][0]] != weights[child]:
-                print "for " + p
-                print (child + " wrong weight; should be " + str(weights[children[p][0]]) + 
-                       " but is " + str(weights[child]))
+    print part_2(root, weights, children)
